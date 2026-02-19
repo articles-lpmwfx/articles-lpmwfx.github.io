@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lpmwfx articles</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .toc ol { list-style-type: decimal; padding-left: 2rem; }
+    .toc li { margin: 1rem 0; font-size: clamp(1rem, 1.5vw, 1.15rem); }
+    .toc a { font-weight: 600; }
+    .toc-meta { display: block; color: var(--muted); font-size: 0.85rem; margin-top: 0.15rem; }
+  </style>
+</head>
+<body>
+
+  <div class="theme-toggle" aria-label="Theme switcher">
+    <button onclick="setTheme('light')" title="Light">&#9788;</button>
+    <button onclick="setTheme('dark')" title="Dark">&#9790;</button>
+    <button onclick="setTheme('system')" title="System">&#9881;</button>
+  </div>
+
+  <header>
+    <h1 class="title">lpmwfx articles</h1>
+    <p class="author">lpmwfx, Denmark, EU</p>
+  </header>
+
+  <nav class="toc">
+    <ol>
+      <li>
+        <a href="https://mib.lpmwfx.com">Mega Iterative Brewing</a>
+        <span class="toc-meta">12-part series · 18.02.2026</span>
+      </li>
+      <li>
+        <a href="https://ai-devops.lpmwfx.com">AI:DevOps — Respectful Symbiosis Between Architect and AI Programmer</a>
+        <span class="toc-meta">18.02.2026</span>
+      </li>
+      <li>
+        <a href="https://human-x-ai.lpmwfx.com">Human × AI: When Systems Thinking Meets the Iterative Dialogue</a>
+        <span class="toc-meta">18.02.2026</span>
+      </li>
+      <li>
+        <a href="https://eu-sailfish-os.lpmwfx.com">Europe's Strategic Opportunity: Why SailfishOS Deserves Serious EU Backing</a>
+        <span class="toc-meta">18.02.2026</span>
+      </li>
+      <li>
+        <a href="https://test-artikel.lpmwfx.com">Article Publishing Pipeline</a>
+        <span class="toc-meta">17.02.2026</span>
+      </li>
+    </ol>
+  </nav>
+
+  <script type="module">
+    window.setTheme = function(theme) {
+      if (theme === 'system') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.removeItem('theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+      }
+      updateToggle();
+    };
+
+    function updateToggle() {
+      const current = localStorage.getItem('theme') || 'system';
+      document.querySelectorAll('.theme-toggle button').forEach((btn, i) => {
+        const themes = ['light', 'dark', 'system'];
+        btn.classList.toggle('active', themes[i] === current);
+      });
+    }
+
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+    updateToggle();
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (!localStorage.getItem('theme')) updateToggle();
+    });
+  </script>
+
+</body>
+</html>
